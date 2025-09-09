@@ -5,6 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>LEAF</title>
   <style>
+    * {
+      box-sizing: border-box; /* يضمن الحسابات تكون مظبوطة */
+    }
+
     body {
       margin: 0;
       font-family: Arial, sans-serif;
@@ -14,13 +18,13 @@
       align-items: center;
       min-height: 100vh;
       flex-direction: column;
+      text-align: center; /* يخلي النصوص والأيقونات في النص */
     }
 
     .container {
-      text-align: center;
       max-width: 400px;
-      width: 90%;
-      margin: 0 auto; /* مهم جدًا لتوسيط العنصر بالضبط */
+      width: 100%;
+      margin: 0 auto; /* توسيط حقيقي */
     }
 
     .logo {
