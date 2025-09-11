@@ -1,14 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>LEAF</title>
   <style>
-    * {
-      box-sizing: border-box; /* يضمن الحسابات تكون مظبوطة */
-    }
-
+    * { box-sizing: border-box; }
     body {
       margin: 0;
       font-family: Arial, sans-serif;
@@ -18,81 +15,133 @@
       align-items: center;
       min-height: 100vh;
       flex-direction: column;
-      text-align: center; /* يخلي النصوص والأيقونات في النص */
+      text-align: center;
+      overflow: hidden;
     }
 
-    .container {
-      max-width: 400px;
-      width: 100%;
-      margin: 0 auto; /* توسيط حقيقي */
+    .container { 
+      max-width: 420px; 
+      width: 100%; 
+      margin: 0 auto; 
     }
 
+    /* اللوجو */
     .logo {
-      width: 80px;
-      height: 80px;
+      width: 140px;
+      height: 140px;
       border-radius: 50%;
-      background-color: #000000;
+      background: linear-gradient(180deg, #0b0b0b 0%, #202020 100%);
       display: flex;
       justify-content: center;
       align-items: center;
       margin: 0 auto 20px auto;
-      font-size: 28px;
-      font-weight: bold;
-      color: white;
+      position: relative;
+      overflow: visible;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+      transform: scale(0.2);
+      opacity: 0;
+      animation: growLogo 1.5s cubic-bezier(.2,.8,.3,1) forwards;
     }
 
-    h1 {
-      margin: 10px 0 5px;
-      font-size: 22px;
+    @keyframes growLogo {
+      to {
+        transform: scale(1);
+        opacity: 1;
+      }
     }
 
-    p {
-      margin: 5px 0 20px;
-      color: #333;
+    /* النص */
+    .leaf-text {
       font-size: 14px;
+      font-weight: 900;
+      color: white;
+      letter-spacing: 2px;
+      transform: scale(0.2);
+      animation: growText 1.5s cubic-bezier(.2,.9,.3,1) forwards;
     }
 
-    .social-icons {
-      margin-bottom: 20px;
+    @keyframes growText {
+      to {
+        font-size: 28px;
+        transform: scale(1);
+        letter-spacing: 2px;
+      }
     }
 
-    .social-icons a {
-      margin: 0 8px;
-      font-size: 20px;
-      text-decoration: none;
-      color: black;
+    /* الورقة */
+    .leaf-svg {
+      position: absolute;
+      right: -22px;
+      top: -18px;
+      width: 72px;
+      height: 72px;
+      opacity: 0;
+      transform: translate(0, -200px) rotate(-30deg) scale(.8);
+      filter: drop-shadow(0 6px 12px rgba(0,0,0,0.18));
+      animation: showLeaf 1.5s ease forwards;
+      animation-delay: 1.2s; /* تبدأ بعد ما اللوجو يكبر */
     }
 
-    .btn {
-      display: block;
-      width: 100%;
-      padding: 14px;
-      margin: 10px 0;
-      background: white;
-      border-radius: 30px;
-      border: 1px solid #ddd;
-      text-decoration: none;
-      color: #1e1e1e;
-      font-weight: bold;
-      transition: 0.3s;
+    @keyframes showLeaf {
+      to {
+        transform: translate(6px, -6px) rotate(0deg) scale(1);
+        opacity: 1;
+      }
     }
 
-    .btn:hover {
-      background: #e6e6e6;
+    /* بعد ما تظهر تبدأ تتحرك */
+    .leaf-svg.float {
+      animation: showLeaf 1.5s ease forwards, floatLeaf 4s ease-in-out infinite;
+      animation-delay: 0.2s, 2.8s; /* الأول الظهور وبعدين الحركة */
     }
+
+    @keyframes floatLeaf {
+      0%   { transform: translate(6px,-6px) rotate(0deg) translateY(0); }
+      25%  { transform: translate(10px,-2px) rotate(6deg) translateY(-4px); }
+      50%  { transform: translate(6px,0px)  rotate(-3deg) translateY(-8px); }
+      75%  { transform: translate(2px,-4px) rotate(4deg) translateY(-4px); }
+      100% { transform: translate(6px,-6px) rotate(0deg) translateY(0); }
+    }
+
+    h1 { margin: 10px 0 5px; font-size: 22px; }
+    p { margin: 5px 0 20px; color: #333; font-size: 14px; }
+    .social-icons { margin-bottom: 20px; }
+    .social-icons a { margin: 0 8px; font-size: 20px; text-decoration: none; color: black; }
+    .btn { display:block; width:100%; padding:14px; margin:10px 0; background:white; border-radius:30px; border:1px solid #ddd; text-decoration:none; color:#1e1e1e; font-weight:bold; transition:.3s; }
+    .btn:hover { background:#e6e6e6; }
 
     footer {
-      margin-top: 30px;
+      margin-top: 25px;
       font-size: 12px;
-      color: #555;
+      color: #666;
+    }
+
+    @media (max-width:420px) {
+      .logo { width:120px; height:120px; }
+      .leaf-text { font-size:24px; }
+      .leaf-svg { width:60px; height:60px; right:-18px; top:-14px; }
     }
   </style>
-  <!-- icons -->
-  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 </head>
 <body>
   <div class="container">
-    <div class="logo">LEAF</div>
+    <div class="logo">
+      <div class="leaf-text">LEAF</div>
+
+      <!-- Cartoon leaf -->
+      <svg class="leaf-svg float" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="cartoonLeaf" x1="0" x2="1" y1="0" y2="1">
+            <stop offset="0%" stop-color="#a8e063"/>
+            <stop offset="100%" stop-color="#56ab2f"/>
+          </linearGradient>
+        </defs>
+        <path d="M32 2C20 6 8 22 12 40s16 22 20 22 16-4 20-22S44 6 32 2z" 
+              fill="url(#cartoonLeaf)" stroke="#2e7d32" stroke-width="2" />
+        <path d="M32 12C28 28 28 44 32 62" stroke="#2e7d32" stroke-width="2" fill="none"/>
+      </svg>
+    </div>
+
     <h1>LEAF</h1>
     <p>LIVE EASY ALWAYS FREE</p>
 
@@ -105,7 +154,11 @@
     <a class="btn" href="https://www.instagram.com/leafclothes.egy?igsh=MTJodjU2dDBxdDEwYg==" target="_blank">Instagram</a>
     <a class="btn" href="https://www.tiktok.com/@leaf.egy?_t=ZS-8zZOA8nRVK9&_r=1" target="_blank">TikTok</a>
     <a class="btn" href="https://sllr.co/leafclothes" target="_blank">Website</a>
-  
+
+    <!-- footer -->
+    <footer>
+      Powered by <strong>LEAF developers</strong>
+    </footer>
   </div>
 </body>
 </html>
