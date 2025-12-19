@@ -1,5 +1,5 @@
 You can check the website here
-DON'T i will not hack you 
+DON'T worry i will not hack you 
 
 MAYBE i will who knows :)
 
